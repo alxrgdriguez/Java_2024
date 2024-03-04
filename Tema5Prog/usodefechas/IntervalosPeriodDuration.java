@@ -1,4 +1,4 @@
-package usodefechas;
+package Tema5Prog.usodefechas;
 
 import java.time.Duration;
 import java.time.LocalDate;
