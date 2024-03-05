@@ -26,6 +26,8 @@ public class Test {
             pv.addMultimedia(new Pelicula("Pelicula " + i, false, 8, 120));
         }
 
+        System.out.println(pv);
+
 
         //Son plus
         for (int i = 170; i < 200; i++){
