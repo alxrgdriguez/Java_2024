@@ -41,13 +41,13 @@ public class Vuelo {
 
 
         for (int i = 0; i < this.asientos.size(); i++){
-            int asientoBussines = (int) (asientosDisponibles * 0.3);
+            double asientoBussines = (asientosDisponibles * 0.3);
             this.asientos.add(asientos);
 
         }
 
         for (int i = 0; i < this.asientos.size(); i++){
-            int asientoTurista = (int) (asientosDisponibles * 0.70);
+            double asientoTurista = (asientosDisponibles * 0.70);
             this.asientos.add(asientos);
         }
     }
@@ -164,6 +164,11 @@ public class Vuelo {
         return estaOcupado;
     }
 
+
+    public void diasFaltanVuelo(){
+
+
+    }
 
 }
 
