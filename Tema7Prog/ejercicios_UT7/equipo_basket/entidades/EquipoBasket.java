@@ -1,5 +1,7 @@
 package Tema7Prog.ejercicios_UT7.equipo_basket.entidades;
 
+import Tema4Prog.Practica_Objetos1.juego_bladeofdarkness.Jugador;
+
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -8,7 +10,7 @@ public class EquipoBasket {
     //Propiedades
     private String nombre;
     private Double partidosGanados;
-    private Double getPartidosPerdidos;
+    private Double PartidosPerdidos;
     private HashSet<JugadorBasket> jugadoresBaskets;
 
     //Constructor
@@ -16,7 +18,7 @@ public class EquipoBasket {
     public EquipoBasket(String nombre, Double partidosGanados, Double getPartidosPerdidos) {
         this.nombre = nombre;
         this.partidosGanados = partidosGanados;
-        this.getPartidosPerdidos = getPartidosPerdidos;
+        this.PartidosPerdidos = getPartidosPerdidos;
         this.jugadoresBaskets = new HashSet<>();
     }
 
@@ -38,17 +40,16 @@ public class EquipoBasket {
         this.partidosGanados = partidosGanados;
     }
 
-    public Double getGetPartidosPerdidos() {
-        return getPartidosPerdidos;
-    }
-
-    public void setGetPartidosPerdidos(Double getPartidosPerdidos) {
-        this.getPartidosPerdidos = getPartidosPerdidos;
-    }
-
-
     public HashSet<JugadorBasket> getJugadoresBaskets() {
         return jugadoresBaskets;
+    }
+
+    public void setJugadoresBaskets(HashSet<JugadorBasket> jugadoresBaskets) {
+        this.jugadoresBaskets = jugadoresBaskets;
+    }
+
+    public Double getPartidosPerdidos() {
+        return PartidosPerdidos;
     }
 
     //equals por nombre
@@ -69,7 +70,24 @@ public class EquipoBasket {
 
     //Metodos
 
+    //Hacer mas tarde..
+    //public JugadorBasket buscarJugador(String nombre)
 
+
+    /**
+     * Metodo para buscar un jugador por su dorsal
+     * @param dorsal
+     * @return Devuelve el jugador con el dorsal encontrado sino deveulve null
+     */
+
+    public JugadorBasket buscarJugador(int dorsal) {
+        for (JugadorBasket jugador : this.jugadoresBaskets) {
+            if (jugador.getDorsal().equals(dorsal)) {
+                return jugador;
+            }
+        }
+        return null;
+    }
 
 
 
@@ -80,7 +98,7 @@ public class EquipoBasket {
         StringBuffer sb = new StringBuffer("Equipo{ ");
         sb.append(" Nombre Equipo: ").append(getNombre());
         sb.append(", Partidos Ganados: ").append(getPartidosGanados());
-        sb.append(", Partidos Perdidos: ").append(getGetPartidosPerdidos());
+        sb.append(", Partidos Perdidos: ").append(getPartidosPerdidos());
         sb.append(", Total de Jugadores: ") ;
         for(JugadorBasket jugador: jugadoresBaskets){
             sb.append(jugador.getNombre());
