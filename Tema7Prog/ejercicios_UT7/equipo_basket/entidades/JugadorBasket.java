@@ -2,10 +2,13 @@ package Tema7Prog.ejercicios_UT7.equipo_basket.entidades;
 
 import Tema7Prog.ejercicios_UT7.equipo_basket.enums.Posicion;
 
+import java.util.Objects;
+
 public class JugadorBasket{
 
     //Propiedades
     private String nombre;
+    private Integer dorsal;
     private Double altuta;
     private Posicion posicion;
     private Double puntosPorPartido;
@@ -17,8 +20,9 @@ public class JugadorBasket{
     //Constructor
 
 
-    public JugadorBasket(String nombre, Double altuta, Posicion posicion, Double puntosPorPartido, Double rebotesPorPartido, Double taponesPorPartido, Double asistenciasPorPartido, Double robosPorPartido) {
+    public JugadorBasket(String nombre, Double altuta, Posicion posicion, Double puntosPorPartido, Double rebotesPorPartido, Double taponesPorPartido, Double asistenciasPorPartido, Double robosPorPartido, Integer dorsal) {
         this.nombre = nombre;
+        this.dorsal = dorsal;
         this.altuta = altuta;
         this.posicion = posicion;
         this.puntosPorPartido = puntosPorPartido;
@@ -36,6 +40,14 @@ public class JugadorBasket{
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Integer getDorsal() {
+        return dorsal;
+    }
+
+    public void setDorsal(Integer dorsal) {
+        this.dorsal = dorsal;
     }
 
     public Double getAltuta() {
@@ -65,6 +77,7 @@ public class JugadorBasket{
     public Double getRebotesPorPartido() {
         return rebotesPorPartido;
     }
+
 
     public void setRebotesPorPartido(Double rebotesPorPartido) {
         this.rebotesPorPartido = rebotesPorPartido;
@@ -100,6 +113,7 @@ public class JugadorBasket{
     public String toString() {
         final StringBuffer sb = new StringBuffer("JugadorBasket{");
         sb.append("nombre='").append(nombre).append('\'');
+        sb.append(", dorsal=").append(dorsal);
         sb.append(", altuta=").append(altuta);
         sb.append(", posicion=").append(posicion);
         sb.append(", puntosPorPartido=").append(puntosPorPartido);
@@ -109,5 +123,21 @@ public class JugadorBasket{
         sb.append(", robosPorPartido=").append(robosPorPartido);
         sb.append('}');
         return sb.toString();
+    }
+
+    //equals por dorsal
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JugadorBasket that = (JugadorBasket) o;
+        return Objects.equals(dorsal, that.dorsal);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dorsal);
     }
 }
