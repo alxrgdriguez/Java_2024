@@ -27,6 +27,7 @@ public class Genero {
         this.nombre = nombre;
     }
 
+
     //toString
 
     @Override

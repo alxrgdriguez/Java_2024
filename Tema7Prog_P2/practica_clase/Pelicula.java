@@ -40,6 +40,11 @@ public class Pelicula {
         this.anio = anio;
     }
 
+    public ArrayList<Genero> getGeneros() {
+        return generos;
+    }
+
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Pelicula{");

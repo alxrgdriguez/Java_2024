@@ -10,21 +10,17 @@ public class Director {
     public static Long autoincremental = 1L;
     private Long id;
     private String nombre;
-    private ArrayList<Pelicula> peliculas;
+    //private ArrayList<Pelicula> peliculas;
 
-    public Director(Long id, String nombre) {
-        this.id = id;
+    public Director(String nombre) {
         this.nombre = nombre;
-        this.peliculas = new ArrayList<>();
+        this.id = autoincremental++;
+        //this.peliculas = new ArrayList<>();
 
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -35,20 +31,12 @@ public class Director {
         this.nombre = nombre;
     }
 
-    public ArrayList<Pelicula> getPeliculas() {
-        return peliculas;
-    }
-
-    public void setPeliculas(ArrayList<Pelicula> peliculas) {
-        this.peliculas = peliculas;
-    }
-
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Director{");
         sb.append("id=").append(id);
         sb.append(", nombre='").append(nombre).append('\'');
-        sb.append(", peliculas=").append(peliculas);
+        //sb.append(", peliculas=").append(peliculas);
         sb.append('}');
         return sb.toString();
     }
@@ -66,11 +54,11 @@ public class Director {
         return Objects.hash(id);
     }
 
-    public void addPelicula (Pelicula p){
+    /*public void addPelicula (Pelicula p){
         peliculas.add(p);
     }
 
     public void deletePelicula(Pelicula p){
         peliculas.remove(p);
-    }
+    }*/
 }
