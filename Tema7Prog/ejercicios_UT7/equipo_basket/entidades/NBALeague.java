@@ -1,7 +1,6 @@
 package Tema7Prog.ejercicios_UT7.equipo_basket.entidades;
 
-import java.util.HashMap;
-import java.util.TreeMap;
+import java.util.*;
 
 public class NBALeague {
 
@@ -51,6 +50,65 @@ public class NBALeague {
         this.equipos.remove(equipo.getNombre());
         this.equiposOrdenados.remove(equipo.getNombre());
     }
+
+    /**
+     * Metodo para buscar equipos por nombre
+     */
+
+    public EquipoBasket buscarNombre (String nombre){
+        return equipos.get(nombre);
+    }
+
+    // --- Mostrar los equipos ---
+
+    /**
+     * Mostrar los equipos por HashMap
+     */
+
+    public void mostrarEquiposHashMap(){
+
+        this.equipos.forEach((nombre,equipo) -> System.out.println( nombre + ": " + equipo));
+    }
+
+    /**
+     * Mostrar equipos por TreeMap
+     */
+
+    public void mostrarEquiposTreeMap(){
+        this.equiposOrdenados.forEach((nombre,equipo) -> System.out.println( nombre + ": " + equipo));
+    }
+
+
+    /**
+     * Buscar el jugador más alto
+     */
+
+    public JugadorBasket buscarMasAlto(){
+
+        List<EquipoBasket> equiposBasket = new ArrayList<>(this.equiposOrdenados.values());
+
+        return equiposBasket.stream()
+
+                .flatMap(equipoBasket -> equipoBasket.getJugadoresBaskets().stream())
+                .max(Comparator.comparing(JugadorBasket::getAltuta))
+                .get(); //Se utiliza cuando es Optional
+    }
+
+    /**
+     * Buscar el equipo con más partidos ganados
+     */
+
+    public EquipoBasket buscarMasPartidosGanados(){
+        List<EquipoBasket> equiposBasket = new ArrayList<>(this.equiposOrdenados.values());
+
+        return equiposBasket.stream()
+
+                .max(Comparator.comparing(EquipoBasket::getPartidosGanados))
+                .get(); //Se utiliza cuando es Optional
+    }
+
+
+
 
 
 

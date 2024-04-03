@@ -4,7 +4,7 @@ import Tema7Prog.ejercicios_UT7.equipo_basket.enums.Posicion;
 
 import java.util.Objects;
 
-public class JugadorBasket{
+public class JugadorBasket implements Comparable<JugadorBasket>{
 
     //Propiedades
     private String nombre;
@@ -30,6 +30,10 @@ public class JugadorBasket{
         this.taponesPorPartido = taponesPorPartido;
         this.asistenciasPorPartido = asistenciasPorPartido;
         this.robosPorPartido = robosPorPartido;
+    }
+
+    public JugadorBasket(String nombre) {
+        this.nombre = nombre;
     }
 
     //Getters and Setters
@@ -139,5 +143,10 @@ public class JugadorBasket{
     @Override
     public int hashCode() {
         return Objects.hash(dorsal);
+    }
+
+    @Override
+    public int compareTo(JugadorBasket o) {
+        return this.nombre.compareTo(o.nombre);
     }
 }

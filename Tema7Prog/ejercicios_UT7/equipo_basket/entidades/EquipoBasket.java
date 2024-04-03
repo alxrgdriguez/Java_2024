@@ -2,8 +2,7 @@ package Tema7Prog.ejercicios_UT7.equipo_basket.entidades;
 
 import Tema4Prog.Practica_Objetos1.juego_bladeofdarkness.Jugador;
 
-import java.util.HashSet;
-import java.util.Objects;
+import java.util.*;
 
 public class EquipoBasket {
 
@@ -70,14 +69,27 @@ public class EquipoBasket {
 
     //Metodos
 
-    //Hacer mas tarde..
-    //public JugadorBasket buscarJugador(String nombre)
+    /**
+     * Buscar el jugador en el equipo y lo devuelva. Intenta hacerlo
+     * óptimo buscando con binarySearch.
+     * @param nombre
+     * @return
+     */
+    public JugadorBasket buscarJugador(String nombre){
+
+        List<JugadorBasket> listaJugadores = new ArrayList<>(this.jugadoresBaskets);
+        listaJugadores.sort(Comparator.comparing(JugadorBasket::getNombre));
+        int bynary = Collections.binarySearch(listaJugadores, new JugadorBasket(nombre));
+
+        return listaJugadores.get(bynary);
+
+    }
 
 
     /**
      * Metodo para buscar un jugador por su dorsal
      * @param dorsal
-     * @return Devuelve el jugador con el dorsal encontrado sino deveulve null
+     * @return Devuelve el jugador con el dorsal encontrado sino devuelve null
      */
 
     public JugadorBasket buscarJugador(int dorsal) {
@@ -100,7 +112,7 @@ public class EquipoBasket {
         sb.append(", Partidos Ganados: ").append(getPartidosGanados());
         sb.append(", Partidos Perdidos: ").append(getPartidosPerdidos());
         sb.append(", Total de Jugadores: ") ;
-        for(JugadorBasket jugador: jugadoresBaskets){
+        for(JugadorBasket jugador: this.jugadoresBaskets){
             sb.append(jugador.getNombre());
             sb.append(" }");
         }
