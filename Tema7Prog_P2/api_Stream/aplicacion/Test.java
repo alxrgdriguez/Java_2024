@@ -11,8 +11,6 @@ import java.util.List;
 
 public class Test {
 
-
-    // --- Metodos ---
     /**
      * Generar un numero double aleatrorio entre un minimo y un maximo
      * @param min por defecto es el numero minimo
