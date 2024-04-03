@@ -1,5 +1,5 @@
-package Tema8Prog.api_Stream.aplicacion;
-import Tema8Prog.api_Stream.entidades.Registro;
+package Tema7Prog_P2.api_Stream.aplicacion;
+import Tema7Prog_P2.api_Stream.entidades.Registro;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;

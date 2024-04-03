@@ -1,6 +1,5 @@
-package Tema8Prog.api_Stream.entidades;
+package Tema7Prog_P2.api_Stream.entidades;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
