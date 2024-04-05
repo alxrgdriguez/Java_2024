@@ -56,20 +56,85 @@ public class Main {
         pel10.setDirectores(new ArrayList<Director>(List.of(d2,d3)));
 
         //STREAMS ----------------------------------------------------------
+        ArrayList<Pelicula> peliculas = new ArrayList<>();
+        peliculas.add(pel1);
+        peliculas.add(pel2);
+        peliculas.add(pel3);
+        peliculas.add(pel4);
+        peliculas.add(pel5);
+        peliculas.add(pel6);
+        peliculas.add(pel7);
+        peliculas.add(pel8);
+        peliculas.add(pel9);
+        peliculas.add(pel10);
+
+        //----------------------------------------------------------
+
         //pelisOrdenadasPorAño(): muestra todas las películas ordenadas por año
-        Stream.of(pel1,pel2,pel3,pel4,pel5,pel6,pel7,pel8,pel9,pel10)
+        peliculas.stream()
                 .sorted(Comparator.comparing(Pelicula::getYear))
-                //.sorted( (p1,p2) -> p1.getYear().compareTo(p2.getYear())
                 .forEach(System.out::println);
 
         System.out.println("-------------------------------------");
 
         //scifi2000(): muestra las películas de ciencia ficción posteriores al año 2000
-        Stream.of(pel1,pel2,pel3,pel4,pel5,pel6,pel7,pel8,pel9,pel10)
+        peliculas.stream()
                 .filter( pelicula -> pelicula.getYear() > 2000 )
                 .filter( pelicula -> pelicula.getGeneros().stream()
                         .anyMatch( genero -> genero.getNombre().equals("Scifi")) )
                 .forEach(System.out::println);
 
+
+        System.out.println("-------------------------------------");
+
+        //tituloMasLargo(): muestra la película cuyo título es más largo
+        peliculas.stream()
+                .max(Comparator.comparing(pelicula -> pelicula.getTitulo().length()))
+                .ifPresent(System.out::println);
+
+        // O orElse -->
+
+
+        System.out.println("-------------------------------------");
+
+        //directoresMayúsculas(): muestra los nombres de los directores ordenados y en mayúsculas.
+
+        peliculas.stream()
+                .flatMap(pelicula -> pelicula.getDirectores().stream())
+                .map(Director::getNombre)
+                .distinct()
+                .map(String:: toUpperCase)
+                .sorted()
+                .forEach(System.out::println);
+
+        System.out.println("-------------------------------------");
+
+        //numPelis(): muestra el director y al lado el número de películas de cada director. Hay que usar
+        //collect.
+
+        /*peliculas.stream()
+                .flatMap(pelicula -> pelicula.getDirectores().stream())
+                .distinct()
+                .forEach(director -> {
+
+                   Long numPeliculas = peliculas.stream()
+
+                           .filter(pelicula -> pelicula.getDirectores().stream())
+                           .anyMatch(direc -> direc.getId() == director.getId())
+
+                });*/
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
 }
