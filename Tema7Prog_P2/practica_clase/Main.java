@@ -71,20 +71,5 @@ public class Main {
                         .anyMatch( genero -> genero.getNombre().equals("Scifi")) )
                 .forEach(System.out::println);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
