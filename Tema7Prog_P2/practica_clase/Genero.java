@@ -4,18 +4,16 @@ import java.util.Objects;
 
 public class Genero {
 
-    public static Long autoincremental = 1L;
-    private Long id;
+    private static long contador=0;
+    private long id;
     private String nombre;
 
     public Genero(String nombre) {
         this.nombre = nombre;
-        this.id = autoincremental++;
+        this.id = Genero.contador++;
     }
 
-    //Getter and Setters
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -26,9 +24,6 @@ public class Genero {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-
-    //toString
 
     @Override
     public String toString() {
@@ -43,12 +38,14 @@ public class Genero {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Genero genero = (Genero) o;
-        return Objects.equals(id, genero.id);
+
+        return id == genero.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return (int) (id ^ (id >>> 32));
     }
 }

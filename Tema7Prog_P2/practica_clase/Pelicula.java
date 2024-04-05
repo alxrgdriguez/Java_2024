@@ -6,18 +6,18 @@ import java.util.UUID;
 
 public class Pelicula {
 
-    private String id = UUID.randomUUID().toString();
+    private String id;
     private String titulo;
-    private Integer anio;
+    private Integer year;
     private ArrayList<Genero> generos;
     private ArrayList<Director> directores;
 
-    public Pelicula(String titulo, Integer anio) {
+    public Pelicula(String titulo, Integer year) {
         this.titulo = titulo;
-        this.anio = anio;
+        this.year = year;
         this.id = UUID.randomUUID().toString();
-        this.generos = new ArrayList<>();
-        this.directores = new ArrayList<>();
+        this.generos = new ArrayList<Genero>();
+        this.directores = new ArrayList<Director>();
     }
 
     public String getId() {
@@ -28,29 +28,40 @@ public class Pelicula {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public Integer getAnio() {
-        return anio;
-    }
-
-    public void setAnio(Integer anio) {
-        this.anio = anio;
+    public Integer getYear() {
+        return year;
     }
 
     public ArrayList<Genero> getGeneros() {
         return generos;
     }
 
+    public ArrayList<Director> getDirectores() {
+        return directores;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setGeneros(ArrayList<Genero> generos) {
+        this.generos = generos;
+    }
+
+    public void setDirectores(ArrayList<Director> directores) {
+        this.directores = directores;
+    }
 
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Pelicula{");
         sb.append("id='").append(id).append('\'');
         sb.append(", titulo='").append(titulo).append('\'');
-        sb.append(", anio=").append(anio);
+        sb.append(", year=").append(year);
         sb.append(", generos=").append(generos);
         sb.append(", directores=").append(directores);
         sb.append('}');
@@ -61,29 +72,30 @@ public class Pelicula {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Pelicula pelicula = (Pelicula) o;
+
         return Objects.equals(id, pelicula.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return id != null ? id.hashCode() : 0;
     }
 
-    public void addGenero(Genero g) {
-        generos.add(g);
-
+    public void addGenero(Genero genero) {
+        this.generos.add(genero);
     }
 
-    public void deleteGenero(Genero g) {
-        generos.remove(g);
+    public void deleteGenero(Genero genero) {
+        this.generos.remove(genero);
     }
 
-    public void addDirector(Director d) {
-        directores.add(d);
+    public void addDirector(Director director) {
+        this.directores.add(director);
     }
 
-    public void deleteDirector(Director d) {
-        directores.remove(d);
+    public void deleteDirector(Director director) {
+        this.directores.remove(director);
     }
 }
