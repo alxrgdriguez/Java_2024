@@ -3,6 +3,7 @@ package Tema7Prog_P2.practica_clase;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class Main {
@@ -112,25 +113,52 @@ public class Main {
         //numPelis(): muestra el director y al lado el número de películas de cada director. Hay que usar
         //collect.
 
-        /*peliculas.stream()
+        peliculas.stream()
                 .flatMap(pelicula -> pelicula.getDirectores().stream())
                 .distinct()
                 .forEach(director -> {
 
-                   Long numPeliculas = peliculas.stream()
+                   long numPeliculas = peliculas.stream()
 
-                           .filter(pelicula -> pelicula.getDirectores().stream())
-                           .anyMatch(direc -> direc.getId() == director.getId())
+                           .filter(pelicula -> pelicula.getDirectores().stream()
+                           .anyMatch(direc -> direc.getId() == director.getId()))
+                           .count();
+                    System.out.println("Nombre del director: " + director.getNombre() + " y tiene " + numPeliculas + " peliculas");
+                });
 
-                });*/
+        System.out.println("-------------------------------------");
 
+        // dramaYMafia(): muestra todas las películas de drama y mafia. Usa dos Predicate (sobre todos
+        //los géneros con anyMatch) y únelos con ‘and’
 
+        Predicate<Pelicula> peliculaMafia = pelicula -> pelicula.getGeneros().stream()
+                .anyMatch(genero -> genero.getNombre().equals("Mafia"));
 
+        Predicate<Pelicula> peliculaDrama = pelicula -> pelicula.getGeneros().stream()
+                .anyMatch(genero -> genero.getNombre().equals("Drama"));
 
+        peliculas.stream()
+                .filter(peliculaMafia.and(peliculaDrama))
+                .forEach(System.out::println);
 
+        System.out.println("-------------------------------------");
 
+        //filmografías(): muestra las películas de cada director ordenadas por año. Que aparezca nombre
+        //de director y debajo sus películas ordenadas por año.
 
+        peliculas.stream()
 
+                .flatMap(pelicula -> pelicula.getDirectores().stream())
+                .distinct()
+                .forEach(director -> {
+                    System.out.println(director.getNombre());
+                    peliculas.stream()
+                            .filter(pelicula -> pelicula.getDirectores().stream()
+                                .anyMatch(director1 -> director1.equals(director)))
+                            .sorted(Comparator.comparing(Pelicula::getYear))
+                            .forEach(System.out::println);
+
+                });
 
     }
 
