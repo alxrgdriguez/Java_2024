@@ -5,6 +5,7 @@ import java.time.Month;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import Tema7Prog_P2.practica_clase2.Producto;
 
 public class TestPedidos {
 
@@ -132,7 +133,7 @@ public class TestPedidos {
 
         pedidos.stream()
                 .filter(pedido -> pedido.getFechaPedido().equals(LocalDate.of(2022, 4,20)))
-                .peek(pedido -> System.out.println("Id de pedido: " + pedido.getId()))
+                .peek(pedido -> System.out.println("Id de pedido: " + pedido.getId() ))
                 .flatMap(pedido -> pedido.getProducto().stream())
                 .forEach(System.out::println);
 
@@ -141,13 +142,12 @@ public class TestPedidos {
 
         //Calcula el total de todos los pedidos de Abril de 2022
 
-       Double total = pedidos.stream()
+       double total = pedidos.stream()
 
                .filter(pedido -> pedido.getFechaPedido().getYear() == 2022)
                .filter(pedido -> pedido.getFechaPedido().getMonth() == Month.APRIL)
                .flatMap(pedido -> pedido.getProducto().stream())
-               .map(Producto::getPrecio)
-               .mapToDouble(Double::doubleValue)
+               .mapToDouble(Producto::getPrecio)
                .sum();
         System.out.println( "El total de pedidos de Abril de 2022 es de " + total + " € ");
 
@@ -173,18 +173,19 @@ public class TestPedidos {
         double totalJuegos = estadistica.getSum();
         double numJuegos = estadistica.getCount();
 
-        System.out.println("Coleccion estadista juegos: " + " numero de juegos: " + numJuegos + " min: " +
+        System.out.println("Coleccion estadistica juegos: " + " numero de juegos: " + numJuegos + " min: " +
                 min + " max: " + max + " media: " + media + " total: " + totalJuegos);
 
         System.out.println("----------------------------------------------------");
 
-
         //Genera un Map<Long, Integer> donde como clave aparezca el id de pedido y como valor el número
         //de productos en el pedido. Collectors.toMap, que el primer parámetro será función lambda para
-        //quedarnos con el id, y el segundo parámetro una función lambda para el tamaño del Set de
+        //quedarnos con el_id, y el segundo parámetro una función lambda para el tamaño del Set de
         //productos.
 
-
+        Map<Long, Integer> clave = pedidos.stream()
+                        .collect(Collectors.toMap(Pedido::getId,pedido -> pedido.getProducto().size()));
+        clave.forEach((k, v) -> System.out.println( "Pedido: " + k + " total de productos " + v));
 
 
         System.out.println("----------------------------------------------------");
@@ -195,11 +196,17 @@ public class TestPedidos {
 
         Map<Pedido, Double> doublePedido = pedidos.stream()
                 .collect(Collectors.toMap(Function.identity(), pedido -> pedido.getProducto().stream()
-                .mapToDouble(Producto::getPrecio)
-                .sum()));
-                doublePedido.forEach((k, v) -> System.out.println("ID: " + k.getId() + " Precio: " + v + " € ")); //BiConsumer
+                    .mapToDouble(Producto::getPrecio)
+                    .sum()));
+                doublePedido.forEach((k, v) -> System.out.println("ID: " + k.getId() + " PRECIO: " + v + " € ")); //BiConsumer
 
 
+        //Genera un Map<String, List<Producto>> con la clave la categoría, y el valor los productos de esa
+        //categoría. Usar Collectors.groupingBy
+
+        /*Map<Categoria, List<Producto>> categoria = pedidos.stream()
+                .collect(Collectors.groupingBy(Producto::getCategoria));
+        categoria.forEach((k, v) -> System.out.println("Categoria: " + k + " total de productos: " + v.size()));*/
 
 
 
