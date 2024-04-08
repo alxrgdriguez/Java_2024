@@ -3,6 +3,7 @@ package Tema7Prog_P2.practica_clase2;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class TestPedidos {
@@ -174,6 +175,30 @@ public class TestPedidos {
 
         System.out.println("Coleccion estadista juegos: " + " numero de juegos: " + numJuegos + " min: " +
                 min + " max: " + max + " media: " + media + " total: " + totalJuegos);
+
+        System.out.println("----------------------------------------------------");
+
+
+        //Genera un Map<Long, Integer> donde como clave aparezca el id de pedido y como valor el número
+        //de productos en el pedido. Collectors.toMap, que el primer parámetro será función lambda para
+        //quedarnos con el id, y el segundo parámetro una función lambda para el tamaño del Set de
+        //productos.
+
+
+
+
+        System.out.println("----------------------------------------------------");
+
+        //Genera un Map<Pedido, Double> donde la clave sea cada pedido y el valor sea el total del pedido.
+        //Hay que usar Collectors.toMap pero al poner la clave es el propio pedido, se pone
+        //Function.identity() en el primer parámetro de Collectors.toMap
+
+        Map<Pedido, Double> doublePedido = pedidos.stream()
+                .collect(Collectors.toMap(Function.identity(), pedido -> pedido.getProducto().stream()
+                .mapToDouble(Producto::getPrecio)
+                .sum()));
+                doublePedido.forEach((k, v) -> System.out.println("ID: " + k.getId() + " Precio: " + v + " € ")); //BiConsumer
+
 
 
 
