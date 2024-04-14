@@ -107,9 +107,8 @@ public class Usuario {
     }
 
     /**
-     *  Devolverá únicamente los puntos de ese juego.
      * @param idJuego
-     * @return
+     * @return únicamente los puntos de ese juego.
      */
     public Puntuacion getPuntuacion(Integer idJuego){
         return this.puntuaciones.get(idJuego);
