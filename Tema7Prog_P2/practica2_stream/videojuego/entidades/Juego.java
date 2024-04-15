@@ -18,7 +18,7 @@ public class Juego {
 
     //Getters and Setters
 
-    public static Integer getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -4,6 +4,7 @@ import Tema4Prog.Ejemplos_BasicosPOO.Jugador;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
@@ -59,18 +60,14 @@ public class Stim {
      * Pintar los jugadores
      */
     public void listarJugadores(){
-        for (int i = 0; i < this.jugadores.size(); i++){
-            System.out.println(this.jugadores.get(i).toString());
-        }
+        this.jugadores.forEach(System.out::println);
     }
 
     /**
      * Que pinte todos los juegos
      */
     public void listarJuegos(){
-        for (int i = 0; i < this.juegos.size(); i++){
-            System.out.println(this.juegos.get(i).toString());
-        }
+        this.juegos.forEach(System.out::println);
     }
 
     /**
@@ -79,11 +76,12 @@ public class Stim {
      */
     public TreeSet<Puntuacion> obtenerPuntuaciones(Integer idjuego){
 
-        TreeSet<Puntuacion> obtengoPuntuacion = new TreeSet<>();
+        TreeSet<Puntuacion> obtengoPuntuacion = new TreeSet<>(Comparator.comparing(Puntuacion::getPuntosObtenidos));
 
-        for (int i = 0; i < this.jugadores.size(); i++){
-            obtengoPuntuacion.add(this.jugadores.get(i).getPuntuaciones().get(idjuego));
-        }
+       this.jugadores.stream()
+               .filter(j -> j.getPuntuaciones().containsKey(idjuego))
+               .map(jugador -> jugador.getPuntuaciones().get(idjuego))
+               .forEach(obtengoPuntuacion::add);
         return obtengoPuntuacion;
     }
 
@@ -93,12 +91,10 @@ public class Stim {
      */
     public void buscarPuntuacion(Integer idjuego, Integer idUsuario){
 
-        StringBuffer sb = new StringBuffer("");
-        sb.append("Usuario -> ").append(this.jugadores.get(idUsuario).getNick()).append("\n")
-        .append("Puntuacion del juego -> ").append(this.jugadores.get(idUsuario).getPuntuaciones().get(idjuego).getPuntosObtenidos())
-        .append("Partidas ganadas -> ").append(this.jugadores.get(idUsuario).getPuntuaciones().get(idjuego).getPartidosGanados())
-        .append("Partidas jugadas -> ").append(this.jugadores.get(idUsuario).getPuntuaciones().get(idjuego).getPartidasJugadas());
-
+       this.jugadores.stream()
+               .filter(jugador -> jugador.getId().equals(idUsuario))
+               .map(jugador -> jugador.getPuntuaciones().get(idjuego))
+               .forEach(System.out::println);
     }
 
     /**
@@ -107,22 +103,23 @@ public class Stim {
      * menor. Intenta que salga en forma de tabla (printf). Debe hacerse lo más eficiente
      * posible.
      */
-    /*public void pintarRankingJuegos(){
+    public void pintarRankingJuegos(){
 
-        StringBuffer sb = new StringBuffer("");
+        this.juegos.forEach(juego -> {
+            System.out.println( "----- " + juego.getNombre() + " -----");
+            this.jugadores.stream()
+                    .filter(jugador -> jugador.getPuntuaciones().containsKey(juego.getId()))
+                    .sorted(new Comparator<Usuario>() {
+                        @Override
+                        public int compare(Usuario o1, Usuario o2) {
+                            return o2.getPuntuacion(juego.getId()).compareTo(o1.getPuntuacion(juego.getId()));
+                        }
+                    })
+                    .forEach(jugador -> {
+                        System.out.printf("Nick -> " + jugador.getNick() + " | " + "Puntos -> " + jugador.getPuntuacion(juego.getId()));
+                    });
+        });
 
-        for (int i = 0; i < this.juegos.size(); i++) {
-           for (int j = 0; j < this.jugadores.size(); j++){
-               if (this.jugadores.get(j).getPuntuaciones().containsKey(this.juegos.get(i))){
-                   System.out.printf("Usuario --- " + this.jugadores.get(j).getNick());
-
-               }
-           }
-
-
-        }
-    }*/
-
-
+   }
 
 }

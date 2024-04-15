@@ -26,7 +26,7 @@ public class Usuario {
     //Getters and Setters
 
 
-    public static Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -110,8 +110,8 @@ public class Usuario {
      * @param idJuego
      * @return únicamente los puntos de ese juego.
      */
-    public Puntuacion getPuntuacion(Integer idJuego){
-        return this.puntuaciones.get(idJuego);
+    public Integer getPuntuacion(Integer idJuego){
+        return this.puntuaciones.get(idJuego).getPuntosObtenidos();
     }
 
 }
