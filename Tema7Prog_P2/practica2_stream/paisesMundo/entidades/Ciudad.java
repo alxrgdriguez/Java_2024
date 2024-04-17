@@ -12,11 +12,12 @@ public class Ciudad {
     private Pais pais;
 
     //Constructor
-    public Ciudad(Integer idCiudad, String nombre, Integer poblacion, Pais pais) {
-        this.idCiudad = idCiudad;
+    public Ciudad(String nombre, Integer poblacion, Pais pais) {
+        this.idCiudad = id++;
         this.nombre = nombre;
         this.poblacion = poblacion;
         this.pais = pais;
+
     }
 
     //Getters y Setters

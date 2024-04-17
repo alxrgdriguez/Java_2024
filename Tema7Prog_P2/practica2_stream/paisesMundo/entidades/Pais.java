@@ -19,14 +19,16 @@ public class Pais {
     private List<Ciudad> ciudades;
 
     //Constructor
-    public Pais(String nombre, Integer superficie, Continente continente, Ciudad ciudad, Integer poblacion) {
+    public Pais(String nombre, Continente continente, Integer poblacion, Integer superficie) {
         this.idPais = id++;
         this.nombre = nombre;
+        this.poblacion = poblacion;
         this.superficie = superficie;
         this.continente = continente;
-        this.capital = capital;
-        this.poblacion = poblacion;
         this.ciudades = new ArrayList<>();
+    }
+
+    public Pais() {
     }
 
     //Getters y Setters
