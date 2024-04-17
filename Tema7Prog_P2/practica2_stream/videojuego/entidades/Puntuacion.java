@@ -5,7 +5,7 @@ public class Puntuacion {
     //Propiedades
     private Integer puntosObtenidos;
     private Integer partidasJugadas;
-    private Integer partidosGanados;
+    private Integer partidasGanadas;
     private Integer partidasPerdidas;
 
     //Contructor
@@ -35,12 +35,12 @@ public class Puntuacion {
         this.partidasJugadas = partidasJugadas;
     }
 
-    public Integer getPartidosGanados() {
-        return partidosGanados;
+    public Integer getPartidasGanadas() {
+        return partidasGanadas;
     }
 
-    public void setPartidosGanados(Integer partidosGanados) {
-        this.partidosGanados = partidosGanados;
+    public void setPartidasGanadas(Integer partidasGanadas) {
+        this.partidasGanadas = partidasGanadas;
     }
 
     public Integer getPartidasPerdidas() {
@@ -57,7 +57,7 @@ public class Puntuacion {
         final StringBuffer sb = new StringBuffer("Puntuacion{");
         sb.append("Puntos=").append(puntosObtenidos);
         sb.append(", PJ=").append(partidasJugadas);
-        sb.append(", PG=").append(partidosGanados);
+        sb.append(", PG=").append(partidasGanadas);
         sb.append(", PP=").append(partidasPerdidas);
         sb.append('}');
         return sb.toString();

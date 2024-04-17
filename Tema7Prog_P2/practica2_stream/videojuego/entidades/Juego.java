@@ -6,6 +6,7 @@ public class Juego {
 
     //Propiedades
     public static Integer id = 0;
+    private Integer idJuego;
     private String nombre;
     private Plataforma plataforma;
 
@@ -13,13 +14,13 @@ public class Juego {
     public Juego(String nombre, Plataforma plataforma) {
         this.nombre = nombre;
         this.plataforma = plataforma;
-        id++;
+        this.idJuego = id++;
     }
 
     //Getters and Setters
 
     public Integer getId() {
-        return id;
+        return idJuego;
     }
 
     public String getNombre() {

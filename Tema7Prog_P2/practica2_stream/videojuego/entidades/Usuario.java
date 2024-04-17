@@ -1,14 +1,12 @@
 package Tema7Prog_P2.practica2_stream.videojuego.entidades;
 
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Stream;
 
 public class Usuario {
 
     //Propiedades
     public static Integer id = 0;
+    private Integer idUsuario;
     private String nombre;
     private String email;
     private String nick;
@@ -17,6 +15,7 @@ public class Usuario {
     //Constructor
 
     public Usuario(String nombre, String email, String nick) {
+        this.idUsuario = id++;
         this.nombre = nombre;
         this.email = email;
         this.nick = nick;
@@ -24,10 +23,8 @@ public class Usuario {
     }
 
     //Getters and Setters
-
-
     public Integer getId() {
-        return id;
+        return idUsuario;
     }
 
     public String getNombre() {
@@ -84,13 +81,22 @@ public class Usuario {
      */
     public void addPuntuacion(Integer idJuego, Boolean haGanado, Integer puntosObtenidos){
 
+
+        if (this.puntuaciones.get(idJuego) == null){
+            this.puntuaciones.put(idJuego, new Puntuacion());
+            this.puntuaciones.get(idJuego).setPuntosObtenidos(0);
+            this.puntuaciones.get(idJuego).setPartidasJugadas(0);
+            this.puntuaciones.get(idJuego).setPartidasGanadas(0);
+            this.puntuaciones.get(idJuego).setPartidasPerdidas(0);
+        }
+
         this.puntuaciones.forEach((idjuego, puntuacion) -> {
 
             if (idjuego.equals(idJuego)){
                 puntuacion.setPartidasJugadas(puntuacion.getPartidasJugadas()+1);
 
                 if (haGanado){
-                    puntuacion.setPartidosGanados(puntuacion.getPartidosGanados()+1);
+                    puntuacion.setPartidasGanadas(puntuacion.getPartidasGanadas()+1);
                 }else {
                     puntuacion.setPartidasPerdidas(puntuacion.getPartidasPerdidas()+1);
                 }
@@ -100,9 +106,6 @@ public class Usuario {
             }
 
         });
-
-        puntuaciones.put(idJuego, new Puntuacion());
-        puntuaciones.get(idJuego).setPuntosObtenidos(puntosObtenidos);
 
     }
 
