@@ -77,6 +77,9 @@ public class Pais {
         this.poblacion = poblacion;
     }
 
+    public List<Ciudad> getCiudades() {
+        return ciudades;
+    }
 
     //toString
     @Override

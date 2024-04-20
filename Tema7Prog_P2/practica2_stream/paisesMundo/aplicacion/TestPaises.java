@@ -225,10 +225,14 @@ public class TestPaises {
             System.out.println(nombresPaises);
         });
 
+        System.out.println("------------------------EJERCICIO 8------------------------------");
 
+        /**
+         * Muestra si todos los países tienen más de 20 millones de habitantes o no
+         */
 
-        boolean MasDe20Millones = !paises.stream()
-                .anyMatch(pais -> pais.getPoblacion() > 20000000);
+        boolean MasDe20Millones = paises.stream()
+                .allMatch(pais -> pais.getPoblacion() > 20000000);
 
         if (MasDe20Millones == true) {
             System.out.println("Todos los países tienen más de 20 millones de habitantes.");
@@ -236,11 +240,54 @@ public class TestPaises {
             System.out.println("No todos los países tienen más de 20 millones de habitantes.");
         }
 
+        System.out.println("------------------------EJERCICIO 9------------------------------");
+
+        /**
+         * Muestra la media de población de todos los países en conjunto
+         */
+        Double mediaPoblacion = paises.stream()
+                .mapToDouble(Pais::getPoblacion)
+                .average()
+                .getAsDouble();
+
+        System.out.print("Poblacion de todos los paises: ");
+        System.out.println(mediaPoblacion);
+
+        System.out.println("------------------------EJERCICIO 10------------------------------");
+
+        /**
+         * Muestra todos los continentes, y cuántos países has metido en cada continente
+         */
+
+        Map<Continente, Long> PaisesMetidosContinente = paises.stream()
+
+                .collect(Collectors.groupingBy(Pais::getContinente, Collectors.counting()));
+                PaisesMetidosContinente.forEach((continente, cantidadP) -> System.out.println(continente + " " + cantidadP));
+
+        System.out.println("------------------------EJERCICIO 11------------------------------");
+
+        /**
+         * Muestra los países ordenados por superficie, y para cada país sus ciudades ordenadas por
+         * población
+         */
+
+        paises.stream()
+                .sorted(Comparator.comparing(Pais::getSuperficie).reversed())
+                .forEach(pais -> {
+                    System.out.println();
+                    System.out.println(pais.getNombre());
+                    paises.stream()
+                            .filter(pais1 -> pais1.getIdPais().equals(pais.getIdPais()))
+                            .flatMap(pais1 -> pais1.getCiudades().stream())
+                            .sorted(Comparator.comparing(Ciudad::getPoblacion).reversed())
+                            .forEach(ciudad -> System.out.println(ciudad.getNombre() + " poblacion: " + ciudad.getPoblacion() ));
+                });
+
+
+
+
+
     }
-
-
-
-
 
 
   }
