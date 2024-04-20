@@ -5,7 +5,10 @@ import Tema7Prog_P2.practica2_stream.paisesMundo.entidades.Pais;
 import Tema7Prog_P2.practica2_stream.paisesMundo.enums.Continente;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class TestPaises {
 
@@ -18,10 +21,10 @@ public class TestPaises {
         Pais argentina = new Pais("Argentina", Continente.AMERICA,44940000,2780400);
         Pais egipto = new Pais("Egipto", Continente.AFRICA,104000000, 1002450);
         Pais australia = new Pais("Australia", Continente.OCEANIA, 25670000, 7692024);
-        Pais rusia = new Pais("Rusia", Continente.EUROPA, 144500000, 17098242);
+        Pais rusia = new Pais("Rusia", Continente.ASIA, 144500000, 17098242);
         Pais india = new Pais("India", Continente.ASIA, 1393000000, 3287240);
         Pais brasil = new Pais("Brasil", Continente.AMERICA, 213300000, 8515770);
-        Pais nuevaZelanda = new Pais("Nueva Zelanda", Continente.AFRICA, 206140000, 923768);
+        Pais nuevaZelanda = new Pais("Nueva Zelanda", Continente.OCEANIA, 206140000, 923768);
         Pais francia = new Pais("Francia", Continente.EUROPA, 67010000, 551695);
 
         // Añadir ciudades España
@@ -188,5 +191,56 @@ public class TestPaises {
                 .map(p -> p.getCapital())
                 .sorted(Comparator.comparing(ciudad -> ciudad.getNombre()))
                 .forEach(ciudad -> System.out.println(ciudad.getNombre()));
+
+
+        System.out.println("------------------------EJERCICIO 6------------------------------");
+
+        /**
+         * Muestra las tres capitales más pobladas
+         */
+
+        List<Ciudad> tresCapitales = paises.stream()
+                .map(Pais::getCapital)
+                .sorted(Comparator.comparing(Ciudad::getPoblacion).reversed())
+                .limit(3)
+                .collect(Collectors.toList());
+
+        System.out.println("Las 3 capitales mas pobladas son: ");
+        tresCapitales.forEach(ciudad -> System.out.println(ciudad.getNombre() + " - población: " + ciudad.getPoblacion() + " habitantes"));
+
+        System.out.println("------------------------EJERCICIO 7------------------------------");
+
+        /**
+         * Muestra cada continente, y seguido por ‘:’ los países de ese continente
+         */
+
+        Map<Continente, List<Pais>> paisesDeEseContinente = paises.stream()
+                .collect(Collectors.groupingBy(Pais::getContinente));
+
+        paisesDeEseContinente.forEach((continente, listaPaises) -> {
+            System.out.print(continente + ": ");
+            String nombresPaises = listaPaises.stream()
+                    .map(Pais::getNombre)
+                    .collect(Collectors.joining(", "));
+            System.out.println(nombresPaises);
+        });
+
+
+
+        boolean MasDe20Millones = !paises.stream()
+                .anyMatch(pais -> pais.getPoblacion() > 20000000);
+
+        if (MasDe20Millones == true) {
+            System.out.println("Todos los países tienen más de 20 millones de habitantes.");
+        } else {
+            System.out.println("No todos los países tienen más de 20 millones de habitantes.");
+        }
+
     }
+
+
+
+
+
+
   }
