@@ -4,10 +4,7 @@ import Tema7Prog_P2.practica2_stream.paisesMundo.entidades.Ciudad;
 import Tema7Prog_P2.practica2_stream.paisesMundo.entidades.Pais;
 import Tema7Prog_P2.practica2_stream.paisesMundo.enums.Continente;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TestPaises {
@@ -283,8 +280,71 @@ public class TestPaises {
                             .forEach(ciudad -> System.out.println(ciudad.getNombre() + " poblacion: " + ciudad.getPoblacion() ));
                 });
 
+        System.out.println("------------------------EJERCICIO 12------------------------------");
+        /**
+         * Muestra cada país, la suma de las poblaciones de sus ciudades
+         */
 
 
+        System.out.println("------------------------EJERCICIO 13------------------------------");
+
+        /**
+         * Capital mas poblada
+         */
+
+        paises.stream()
+                .map(Pais::getCapital)
+                .max(Comparator.comparing(Ciudad::getPoblacion).reversed())
+                .ifPresent(ciudad -> System.out.println("Capital más poblada: " + ciudad.getNombre()));
+
+
+        System.out.println("------------------------EJERCICIO 14------------------------------");
+
+        /**
+         * Países ordenados por densidad de población
+         */
+
+        System.out.println("------------------------EJERCICIO 15------------------------------");
+
+        /**
+         * Devuelve la primera capital que empiece por B
+         */
+
+        Ciudad empiezanConB = paises.stream()
+                        .map(Pais::getCapital)
+                        .filter(c -> c.getNombre().startsWith("B"))
+                        .findFirst()
+                        .orElse(null);
+
+        if (empiezanConB != null){
+            System.out.println(  "La primera capital que empieza por B es: " + empiezanConB.getNombre());
+        }else {
+            System.out.println("No hay ninguna capital que empiece con la letra B");
+        }
+
+        System.out.println("------------------------EJERCICIO 16------------------------------");
+
+        /**
+         * Muestra cada país y su ciudad más poblada
+         */
+
+        paises.forEach(pais -> {
+            String nombrePais = pais.getNombre();
+            pais.getCiudades().stream()
+                    .max(Comparator.comparing(Ciudad::getPoblacion))
+                    .ifPresent(ciudad -> System.out.println(ciudad.getNombre()));
+        });
+
+        System.out.println("------------------------EJERCICIO 17------------------------------");
+
+        /**
+         * Muestra la ciudad más poblada. Puedes usar el ejercicio anterior y continuar a partir de él
+         */
+
+        paises.stream()
+                .flatMap(pais -> pais.getCiudades().stream())
+                .max(Comparator.comparing(Ciudad::getPoblacion))
+                .ifPresent(c -> System.out.println(c.getNombre()));
 
 
     }
