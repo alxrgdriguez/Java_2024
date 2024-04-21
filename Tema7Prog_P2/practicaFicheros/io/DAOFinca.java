@@ -57,7 +57,8 @@ public class DAOFinca {
         try {
             return this.fincas.stream()
                     .filter(finca -> finca.getIdFinca().equals(id))
-                    .findFirst().get(); //findFirst para que encuentre el primero
+                    .findFirst()
+                    .get(); //findFirst para que encuentre el primero
         }catch (Exception e) {
             System.out.println("Error al buscar la finca: " + id);
             return null;
