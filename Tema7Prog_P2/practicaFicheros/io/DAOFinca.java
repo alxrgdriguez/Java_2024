@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 
 public class DAOFinca {
 
-    private ArrayList<Finca> fincas;
+    private static ArrayList<Finca> fincas;
 
     //Constructor
     public DAOFinca() throws IOException {
-        this.fincas = cargarDatos();
+        fincas = cargarDatos();
     }
 
     /**
@@ -52,10 +52,10 @@ public class DAOFinca {
      * @return
      * @throws NoSuchElementException
      */
-    public Finca findById(int id) throws NoSuchElementException {
+    public static Finca findById(int id) throws NoSuchElementException {
 
         try {
-            return this.fincas.stream()
+            return fincas.stream()
                     .filter(finca -> finca.getIdFinca().equals(id))
                     .findFirst()
                     .get(); //findFirst para que encuentre el primero
@@ -71,14 +71,14 @@ public class DAOFinca {
      * @param finca
      */
     public void addFinca(Finca finca){
-        this.fincas.add(finca);
+        fincas.add(finca);
     }
 
     /**
      * Metodo para eliminar una finca
      */
     public void deleteFinca(Finca finca){
-        this.fincas.remove(finca);
+        fincas.remove(finca);
     }
 
     /**
@@ -88,7 +88,7 @@ public class DAOFinca {
      */
     public List<Finca> findByName (String nombre){
 
-        return this.fincas.stream()
+        return fincas.stream()
                 .filter(finca -> finca.getNombre().contains(nombre))
                 .toList();
     }

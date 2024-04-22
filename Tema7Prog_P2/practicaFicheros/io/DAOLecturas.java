@@ -15,22 +15,48 @@ import java.util.Set;
 public class DAOLecturas {
 
     //Propiedades
-    Set<Lectura> lecturas;
+    private static Set<Lectura> lecturas;
 
-    public static Set<Finca> cargarDatos() throws IOException{
+    //Constructor
+    public DAOLecturas() throws IOException {
+        lecturas = cargarDatos();
+    }
 
-        Path rutaLecturas= Paths.get("Tema7Prog_P2","practicaFicheros", "recursos", "lecturas.csv");
+    public static Set<Lectura> cargarDatos() throws IOException {
+
+        Path rutaLecturas = Paths.get("Tema7Prog_P2", "practicaFicheros", "recursos", "lecturas.csv");
 
         Set<Lectura> lecturas1 = new HashSet<>();
 
         List<Lectura> lecturasFichero = Files.lines(rutaLecturas)
-                .map(str ->{
-                     String[] cad = str.split(",");
+                .map(str -> {
+                    String[] cad = str.split(",");
 
-                     //Creamos el objeto lectura
-                    /*return new Lectura(Integer.parseInt(cad[0]), Double.parseDouble(cad[1]), Double.parseDouble(cad[2]),
-                            LocalDate.parse(cad[3]),)*/
+                    Finca fincaOb = DAOFinca.findById(Integer.parseInt(cad[4]));
 
-                })
+                    //Creamos el objeto lectura
+                    return new Lectura(Integer.parseInt(cad[0]), Double.parseDouble(cad[1]), Double.parseDouble(cad[2]),
+                            LocalDate.parse(cad[3]), fincaOb);
+
+                }).toList();
+
+        lecturas1.addAll(lecturasFichero);
+        return lecturas1;
+    }
+
+    /**
+     * Metodo para añadir una lectura
+     * @param lectura
+     */
+    public void addLectura(Lectura lectura){
+        lecturas.add(lectura);
+    }
+
+    /**
+     * Metodo para eliminar lectura
+     * @param lectura
+     */
+    public void deleteLectura(Lectura lectura){
+        lecturas.remove(lectura);
     }
 }
