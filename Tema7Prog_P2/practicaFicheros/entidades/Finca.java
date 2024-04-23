@@ -10,12 +10,12 @@ public class Finca {
     private String nombre;
     private Double longitud;
     private Double latitud;
-    private String superficie;
+    private Integer superficie;
     private String localidad;
     private String provincia;
 
     //Constructor
-    public Finca(Integer id, String nombre, Double longitud, Double latitud, String superficie, String localidad, String provincia) {
+    public Finca(Integer id, String nombre, Double longitud, Double latitud, Integer superficie, String localidad, String provincia) {
         this.nombre = nombre;
         this.longitud = longitud;
         this.latitud = latitud;
@@ -56,11 +56,11 @@ public class Finca {
         this.latitud = latitud;
     }
 
-    public String getSuperficie() {
+    public Integer getSuperficie() {
         return superficie;
     }
 
-    public void setSuperficie(String superficie) {
+    public void setSuperficie(Integer superficie) {
         this.superficie = superficie;
     }
 
