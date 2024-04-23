@@ -51,7 +51,7 @@ public class Main {
         //Elimina 5 lecturas y llama a grabarDatos() de DAOReserva
 
         System.out.println("\n------------------deleteLectura-------------------");
-        DAOLecturas.deleteLectura(DAOLecturas.FindById(1));
+        DAOLecturas.deleteLectura(DAOLecturas.FindById(13));
         DAOLecturas.grabarDatos();
 
     }

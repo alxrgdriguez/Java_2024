@@ -60,13 +60,17 @@ public class DAOLecturas {
     public static void grabarDatos() throws IOException{
         Path rutaLecturas = Paths.get("Tema7Prog_P2", "practicaFicheros", "recursos", "lecturas.csv");
 
+        //Files.deleteIfExists(rutaLecturas); Otra posible solución, si n es con el TRUNCATE_EXISTING
+
         BufferedWriter bw = Files.newBufferedWriter(rutaLecturas,
                 StandardOpenOption.WRITE,
+                StandardOpenOption.TRUNCATE_EXISTING,
                 StandardOpenOption.CREATE);
 
         //For each lecturas
+        StringBuffer sb = new StringBuffer();
         for (Lectura l: lecturas ){
-            StringBuffer sb = new StringBuffer();
+            //StringBuffer sb = new StringBuffer();
             sb.append(l.getId()).append(",");
             sb.append(l.getTemperatura()).append(",");
             sb.append(l.getHumedad()).append(",");
@@ -74,6 +78,7 @@ public class DAOLecturas {
             sb.append(l.getFinca().getIdFinca()).append("\n");
 
             bw.write(sb.toString());
+            sb.delete(0, sb.length());
         }
 
         //Cerramos el BufferedWriter
