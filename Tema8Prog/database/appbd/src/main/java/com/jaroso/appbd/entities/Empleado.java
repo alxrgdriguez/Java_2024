@@ -28,5 +28,10 @@ public class Empleado {
     private String email;
 
 
-
+    public Empleado(String nombre, String apellidos, Integer edad, String email) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.edad = edad;
+        this.email = email;
+    }
 }
