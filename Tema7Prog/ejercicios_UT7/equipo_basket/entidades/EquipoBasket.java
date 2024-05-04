@@ -3,8 +3,9 @@ package Tema7Prog.ejercicios_UT7.equipo_basket.entidades;
 import Tema4Prog.Practica_Objetos1.juego_bladeofdarkness.Jugador;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 
-public class EquipoBasket {
+public class EquipoBasket implements BiConsumer<String, EquipoBasket> {
 
     //Propiedades
     private String nombre;
@@ -112,7 +113,7 @@ public class EquipoBasket {
         sb.append(", Partidos Ganados: ").append(getPartidosGanados());
         sb.append(", Partidos Perdidos: ").append(getPartidosPerdidos());
         sb.append(", Total de Jugadores: ") ;
-        for(JugadorBasket jugador: this.jugadoresBaskets){
+        for(JugadorBasket jugador : this.jugadoresBaskets){
             sb.append(jugador.getNombre());
             sb.append(" }");
         }
@@ -136,4 +137,13 @@ public class EquipoBasket {
 
     }
 
+    @Override
+    public void accept(String s, EquipoBasket equipoBasket) {
+
+    }
+
+    @Override
+    public BiConsumer<String, EquipoBasket> andThen(BiConsumer<? super String, ? super EquipoBasket> after) {
+        return BiConsumer.super.andThen(after);
+    }
 }
