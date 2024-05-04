@@ -91,7 +91,7 @@ public class NBALeague {
 
                 .flatMap(equipoBasket -> equipoBasket.getJugadoresBaskets().stream())
                 .max(Comparator.comparing(JugadorBasket::getAltuta))
-                .get(); //Se utiliza cuando es Optional
+                .orElse(null); //Se utiliza cuando es Optional
     }
 
     /**
@@ -106,11 +106,6 @@ public class NBALeague {
                 .max(Comparator.comparing(EquipoBasket::getPartidosGanados))
                 .get(); //Se utiliza cuando es Optional
     }
-
-
-
-
-
 
 
 }

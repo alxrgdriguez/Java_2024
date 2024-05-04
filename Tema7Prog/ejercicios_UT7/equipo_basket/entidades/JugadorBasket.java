@@ -18,8 +18,6 @@ public class JugadorBasket implements Comparable<JugadorBasket>{
     private Double robosPorPartido;
 
     //Constructor
-
-
     public JugadorBasket(String nombre, Double altuta, Posicion posicion, Double puntosPorPartido, Double rebotesPorPartido, Double taponesPorPartido, Double asistenciasPorPartido, Double robosPorPartido, Integer dorsal) {
         this.nombre = nombre;
         this.dorsal = dorsal;
@@ -31,6 +29,8 @@ public class JugadorBasket implements Comparable<JugadorBasket>{
         this.asistenciasPorPartido = asistenciasPorPartido;
         this.robosPorPartido = robosPorPartido;
     }
+
+
 
     public JugadorBasket(String nombre) {
         this.nombre = nombre;
