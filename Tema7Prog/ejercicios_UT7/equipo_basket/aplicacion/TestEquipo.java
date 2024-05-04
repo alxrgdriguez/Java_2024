@@ -31,7 +31,7 @@ public class TestEquipo {
         System.out.println(e1.mostrarEquipo());
         System.out.println("----------------");
         System.out.println(e2.mostrarEquipo());
-        System.out.println("----------------");
+        System.out.println("-------ALTO------");
         System.out.println(nba.buscarMasAlto());
         System.out.println("----------------");
         System.out.println(nba.buscarMasPartidosGanados());

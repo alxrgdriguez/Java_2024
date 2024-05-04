@@ -18,8 +18,6 @@ public class JugadorBasket implements Comparable<JugadorBasket>{
     private Double robosPorPartido;
 
     //Constructor
-
-
     public JugadorBasket(String nombre, Double altuta, Posicion posicion, Double puntosPorPartido, Double rebotesPorPartido, Double taponesPorPartido, Double asistenciasPorPartido, Double robosPorPartido, Integer dorsal) {
         this.nombre = nombre;
         this.dorsal = dorsal;
@@ -34,6 +32,14 @@ public class JugadorBasket implements Comparable<JugadorBasket>{
 
     public JugadorBasket(String nombre) {
         this.nombre = nombre;
+        this.dorsal = 0;
+        this.altuta = 0.0;
+        this.posicion = Posicion.PIVOT;
+        this.puntosPorPartido = 0.0;
+        this.rebotesPorPartido = 0.0;
+        this.taponesPorPartido = 0.0;
+        this.asistenciasPorPartido = 0.0;
+        this.robosPorPartido = 0.0;
     }
 
     //Getters and Setters

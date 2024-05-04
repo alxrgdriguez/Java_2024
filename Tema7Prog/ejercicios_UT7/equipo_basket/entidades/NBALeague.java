@@ -85,7 +85,7 @@ public class NBALeague {
 
     public JugadorBasket buscarMasAlto(){
 
-        List<EquipoBasket> equiposBasket = new ArrayList<>(this.equiposOrdenados.values());
+        /*List<EquipoBasket> equiposBasket = new ArrayList<>(this.equiposOrdenados.values());
 
         return equiposBasket.stream()
 
@@ -93,25 +93,18 @@ public class NBALeague {
                 .max(Comparator.comparing(JugadorBasket::getAltuta))
                 .orElse(null); //Se utiliza cuando es Optional
 
-        /*JugadorBasket jma = null;
+         */
 
-        for (Map.Entry<String, EquipoBasket> equipo: equiposOrdenados.entrySet()){
+        JugadorBasket jugadorB = new JugadorBasket("");
 
-            for (int i = 0; i < equipo.getValue().getJugadoresBaskets().size(); i++){
-                if (jma == null){
-                    jma = (JugadorBasket) equipo.getValue().getJugadoresBaskets().toArray()[i];
-                }else{
-                    if(jma.getAltuta() < ((JugadorBasket) equipo.getValue().getJugadoresBaskets().toArray()[i]).getAltuta()){
-                        jma = (JugadorBasket) equipo.getValue().getJugadoresBaskets().toArray()[i];
-                    }
+        for (Map.Entry<String, EquipoBasket> equipoPintar: this.equiposOrdenados.entrySet()){
+            for (JugadorBasket jugadorPintar : equipoPintar.getValue().getJugadoresBaskets()){
+                if (jugadorB.getAltuta() < jugadorPintar.getAltuta()){
+                    jugadorB = jugadorPintar;
                 }
             }
-
         }
-
-        return jma;*/
-
-
+        return jugadorB;
     }
 
     /**
