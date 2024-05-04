@@ -91,7 +91,27 @@ public class NBALeague {
 
                 .flatMap(equipoBasket -> equipoBasket.getJugadoresBaskets().stream())
                 .max(Comparator.comparing(JugadorBasket::getAltuta))
-                .get(); //Se utiliza cuando es Optional
+                .orElse(null); //Se utiliza cuando es Optional
+
+        /*JugadorBasket jma = null;
+
+        for (Map.Entry<String, EquipoBasket> equipo: equiposOrdenados.entrySet()){
+
+            for (int i = 0; i < equipo.getValue().getJugadoresBaskets().size(); i++){
+                if (jma == null){
+                    jma = (JugadorBasket) equipo.getValue().getJugadoresBaskets().toArray()[i];
+                }else{
+                    if(jma.getAltuta() < ((JugadorBasket) equipo.getValue().getJugadoresBaskets().toArray()[i]).getAltuta()){
+                        jma = (JugadorBasket) equipo.getValue().getJugadoresBaskets().toArray()[i];
+                    }
+                }
+            }
+
+        }
+
+        return jma;*/
+
+
     }
 
     /**
@@ -104,7 +124,7 @@ public class NBALeague {
         return equiposBasket.stream()
 
                 .max(Comparator.comparing(EquipoBasket::getPartidosGanados))
-                .get(); //Se utiliza cuando es Optional
+                .orElse(null); //Se utiliza cuando es Optional
     }
 
 

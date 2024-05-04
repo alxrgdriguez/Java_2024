@@ -67,6 +67,16 @@ public class EquipoBasket implements BiConsumer<String, EquipoBasket> {
         return Objects.hash(nombre);
     }
 
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer("Equipo{ ");
+        sb.append(" Nombre Equipo: ").append(getNombre());
+        sb.append(", Partidos Ganados: ").append(getPartidosGanados());
+        sb.append(", Partidos Perdidos: ").append(getPartidosPerdidos());
+        sb.append(", Total de Jugadores: " + this.jugadoresBaskets.size()) ;
+
+        return sb.toString();
+    }
 
     //Metodos
 
@@ -107,17 +117,14 @@ public class EquipoBasket implements BiConsumer<String, EquipoBasket> {
     /**
      * Metodo para mostrar la lista del equipo de baloncesto
      */
-    public void mostrarEquipo(){
+    public String mostrarEquipo(){
         StringBuffer sb = new StringBuffer("Equipo{ ");
         sb.append(" Nombre Equipo: ").append(getNombre());
         sb.append(", Partidos Ganados: ").append(getPartidosGanados());
         sb.append(", Partidos Perdidos: ").append(getPartidosPerdidos());
-        sb.append(", Total de Jugadores: ") ;
-        for(JugadorBasket jugador : this.jugadoresBaskets){
-            sb.append(jugador.getNombre());
-            sb.append(" }");
-        }
+        sb.append(", Total de Jugadores: " + this.jugadoresBaskets.size()) ;
 
+        return sb.toString();
     }
 
     /**
