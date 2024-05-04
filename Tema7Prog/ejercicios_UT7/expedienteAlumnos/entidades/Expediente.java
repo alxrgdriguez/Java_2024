@@ -1,6 +1,7 @@
 package Tema7Prog.ejercicios_UT7.expedienteAlumnos.entidades;
 
 import Tema7Prog.ejercicios_UT7.expedienteAlumnos.enums.Activo;
+import Tema7Prog.ejercicios_UT7.expedienteAlumnos.enums.Etapa;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -92,7 +93,7 @@ public class Expediente {
     /**
      * Mostrará todas las notas de este estudiante para una etapa y un curso concreto
      */
-    public String mostrarNotas(int curso, String etapa){
+    public String mostrarNotas(int curso, Etapa etapa){
 
         StringBuffer sb = new StringBuffer();
         sb.append("Notas estudiante: ").append(curso).append(" ").append(etapa).append("\n");
