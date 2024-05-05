@@ -48,17 +48,17 @@ public class MeteoFile {
                     String[] cad = str.split(",");
 
                     //Los registros que se van a buscar para guardarlos dentro de la estacion
-                    TreeSet<RegistroDatosDia> registros = new TreeSet<>();
+                    TreeSet<RegistroDatosDia> registrosParaGuardar = new TreeSet<>();
 
-                    //Recorremos los registros
+                    //Recorremos los registros recuperados anteriormente
                     for(RegistroDatosDia registro: registrosFicheros){
                         //Si el id de la estacion del registro es igual a el id de la estacion actual, añadimos ese registro
                         if (Integer.parseInt(cad[0]) == (registro.getIdEstacion())){
-                            registros.add(registro);
+                            registrosParaGuardar.add(registro);
                         }
                     }
 
-                    return new EstacionMeteorologica(Integer.parseInt(cad[0]), cad[1], cad[2], Double.parseDouble(cad[3]), Double.parseDouble(cad[4]), registros);
+                    return new EstacionMeteorologica(Integer.parseInt(cad[0]), cad[1], cad[2], Double.parseDouble(cad[3]), Double.parseDouble(cad[4]), registrosParaGuardar);
                 })
 
                 .toList();
@@ -66,7 +66,7 @@ public class MeteoFile {
         estaciones.addAll(estacionesFichero);
 
         //Metemos las estaciones del fichero en el objeto ServicioGeneralMeteorologico
-        sgm.setEstacionesMeteo(new ArrayList<>(estacionesFichero));// new ArrayList<>(estacionesFichero) --> Convierte la lista estacionesFichero a una ArrayList
+        sgm.setEstacionesMeteo(new ArrayList<>(estaciones));// new ArrayList<>(estacionesFichero) --> Convierte la lista estacionesFichero a una ArrayList
 
         //return estaciones;
     }
