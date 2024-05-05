@@ -15,7 +15,7 @@ public class Main {
 
         MeteoFile mto1 = new MeteoFile();
 
-        Scanner sc = new Scanner(System.in);
+        /*Scanner sc = new Scanner(System.in);
         Integer opcion = 0;
 
         do {
@@ -48,14 +48,8 @@ public class Main {
         }while (opcion != 14);
 
 
-
-
-
-    }
-}
-
-
-/* RegistroDatosDia rdd1 = new RegistroDatosDia(1001, "05/05/2024", 35.0, 25.0, 30.0, 101);
+*/
+        RegistroDatosDia rdd1 = new RegistroDatosDia(1001, "05/05/2024", 35.0, 25.0, 30.0, 101);
         TreeSet<RegistroDatosDia> registrosPrueba = new TreeSet<>();
         registrosPrueba.add(rdd1);
         EstacionMeteorologica em1 = new EstacionMeteorologica(101, "Estacion de prueba", "Murcia", 3.2542125, -3.32874, registrosPrueba);
@@ -67,8 +61,15 @@ public class Main {
 
         mto1.getSgm().eliminarEstacion(em1);
 
-       //em.forEach(System.out::println);
+        //em.forEach(System.out::println);
 
         System.out.println(mto1.getSgm());
 
-        mto1.grabarCSV();*/
+        mto1.grabarCSV();
+
+
+    }
+}
+
+
+/* */
