@@ -1,6 +1,5 @@
 package Tema7Prog_P2.pruebaEscritaPasado.service;
 
-import Tema7Prog_P2.pruebaEscritaPasado.enums.Comunidad;
 import Tema7Prog_P2.pruebaEscritaPasado.model.EstacionMeteorologica;
 import Tema7Prog_P2.pruebaEscritaPasado.model.RegistroDatosDia;
 
@@ -28,7 +27,7 @@ public class ServicioGeneralMeteorologico {
 
     //toString
     @Override
-    public String toString() {
+    public java.lang.String toString() {
         final StringBuffer sb = new StringBuffer("ServicioGeneralMeteorologico{");
         sb.append("Estaciones=").append(estacionesMeteo);
         sb.append('}');
@@ -54,7 +53,7 @@ public class ServicioGeneralMeteorologico {
     /**
      * Buscar una EstacionMeteorologica por nombre
      */
-    public EstacionMeteorologica buscarEstacion(String nombre) {
+    public EstacionMeteorologica buscarEstacion(java.lang.String nombre) {
         return this.estacionesMeteo.stream()
                 .filter(estacion -> estacion.getNombre().equals(nombre))
                 .findFirst()
@@ -90,9 +89,9 @@ public class ServicioGeneralMeteorologico {
     /**
      * Devuelve una lista con todos los registros tomados en esa comunidad ordenados por fecha. Pista: flatmap
      */
-    public List<RegistroDatosDia> getTempPorComunidad(Comunidad comunidad){
+    public List<RegistroDatosDia> getTempPorComunidad(String string){
         return this.estacionesMeteo.stream()
-                .filter(estacionMeteorologica -> estacionMeteorologica.getComunidad().equals(comunidad))
+                .filter(estacionMeteorologica -> estacionMeteorologica.getComunidad().equals(string))
                 .flatMap(estacionMeteorologica -> estacionMeteorologica.getRegistrosDia().stream())
                 .sorted(Comparator.comparing(RegistroDatosDia::getFecha))
                 .toList();
@@ -112,7 +111,7 @@ public class ServicioGeneralMeteorologico {
     /**
      * Devuelve un mapa que agrupe por comunidad todas las estaciones en esa comunidad.
      */
-    public Map<Comunidad, List<EstacionMeteorologica>> getEstacionesPorComunidad(){
+    public Map<String, List<EstacionMeteorologica>> getEstacionesPorComunidad(){
         return new HashMap<>(this.estacionesMeteo.stream()
                 .collect(Collectors.groupingBy(EstacionMeteorologica::getComunidad)));
     }
@@ -130,7 +129,7 @@ public class ServicioGeneralMeteorologico {
      *  Devuelve un map agrupando por comunidad que contenga la comunidad
      *  y la lectura con la temperatura máxima en esa comunidad
      */
-    public Map<Comunidad, Double> getTemperaturaMaxPorComunidad(){
+    public Map<String, Double> getTemperaturaMaxPorComunidad(){
         return this.estacionesMeteo.stream()
                 .collect(Collectors.toMap(EstacionMeteorologica::getComunidad ,
                         estacion -> estacion.getRegistrosDia().stream()
@@ -142,8 +141,8 @@ public class ServicioGeneralMeteorologico {
     /**
      * Borrar todas las estaciones que estén en una comunidad
      */
-    public void borrarEstacionesPorComunidad(Comunidad comunidad){
-        this.estacionesMeteo.removeIf(estacionMeteorologica -> estacionMeteorologica.getComunidad().equals(comunidad));
+    public void borrarEstacionesPorComunidad(String string){
+        this.estacionesMeteo.removeIf(estacionMeteorologica -> estacionMeteorologica.getComunidad().equals(string));
     }
 
     /**
@@ -162,7 +161,7 @@ public class ServicioGeneralMeteorologico {
      * Devuelve un Map agrupando por estación, cuyo valor sea
      * el número de registros de temperatura tomados en esa estación
      */
-    public Map<String, Integer> getNumRegistros(){
+    public Map<java.lang.String, Integer> getNumRegistros(){
         return this.estacionesMeteo.stream()
                 .collect(Collectors.toMap(EstacionMeteorologica::getNombre,
                         estacion -> estacion.getRegistrosDia().size()));

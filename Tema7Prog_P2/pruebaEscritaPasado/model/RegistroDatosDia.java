@@ -3,14 +3,15 @@ package Tema7Prog_P2.pruebaEscritaPasado.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class RegistroDatosDia {
+public class RegistroDatosDia implements Comparable{
 
     //Propiedades
     private Integer id;
-    private LocalDate fecha;
+    private String fecha;
     private Double tempMax;
     private Double tempMin;
     private Double tempMedia;
+    private Integer idEstacion;
 
     //Constructor
 
@@ -22,12 +23,13 @@ public class RegistroDatosDia {
      * @param tempMin
      * @param tempMedia
      */
-    public RegistroDatosDia(Integer id, LocalDate fecha, Double tempMax, Double tempMin, Double tempMedia) {
+    public RegistroDatosDia(Integer id, String fecha, Double tempMax, Double tempMin, Double tempMedia, Integer idEstacion) {
         this.id = id;
         this.fecha = fecha;
         this.tempMax = tempMax;
         this.tempMin = tempMin;
         this.tempMedia = tempMedia;
+        this.idEstacion = idEstacion;
     }
 
     /**
@@ -44,11 +46,11 @@ public class RegistroDatosDia {
         return id;
     }
 
-    public LocalDate getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -76,6 +78,10 @@ public class RegistroDatosDia {
         this.tempMedia = tempMedia;
     }
 
+    public Integer getIdEstacion() {
+        return idEstacion;
+    }
+
     //toString
     @Override
     public String toString() {
@@ -101,5 +107,15 @@ public class RegistroDatosDia {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        if(((RegistroDatosDia)o).getId().equals(this.getId())){
+            return 0;
+        }else {
+            return 1;
+        }
     }
 }
