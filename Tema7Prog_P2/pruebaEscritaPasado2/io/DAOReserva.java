@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class DAOReserva {
@@ -44,7 +45,7 @@ public class DAOReserva {
         buk.setHoteles(hoteles);
 
 
-        List<Reserva> reservas = Files.lines(rutaReservas)
+        Set<Reserva> reservas = Files.lines(rutaReservas)
                 .map(linea -> {
                     String[] cad = linea.split(",");
 
@@ -54,10 +55,8 @@ public class DAOReserva {
                     return reserva;
 
                 })
-                .toList();
-
-        buk.setReservas(reservas.stream()
-                .collect(Collectors.toSet()));
+                .collect(Collectors.toSet());
+        buk.setReservas(reservas);
 
         return buk;
     }

@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Reserva implements Comparable<Reserva> {
 
-    private static Long idReserva = 0L;
+    private static Long idReserva = 1L;
     private Long id;
     private LocalDate fechaEntrada;
     private LocalDate fechaSalida;

@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Hotel implements Comparable<Hotel> {
 
-    private static Long idHotel = 0L;
+    private static Long idHotel = 1L;
     protected Long id;
     protected String nombre;
     protected String direccion;
