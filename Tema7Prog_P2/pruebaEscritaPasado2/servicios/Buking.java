@@ -122,7 +122,7 @@ public class Buking {
 
     public HashMap<String, Long> getReservasPais(){
         return (HashMap<String, Long>) this.reservas.stream()
-                .collect(Collectors.groupingBy(Reserva::getNacionalidad, Collectors.counting()))
+                .collect(Collectors.groupingBy(Reserva::getNacionalidad, Collectors.counting()));
 
     }
 
