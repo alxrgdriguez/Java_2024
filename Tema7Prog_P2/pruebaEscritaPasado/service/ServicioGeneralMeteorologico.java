@@ -36,134 +36,106 @@ public class ServicioGeneralMeteorologico {
 
     //METODOS ------------------------
 
-    /**
-     * Añadir una estacion
-     */
-    public void nuevaEstacion(EstacionMeteorologica estacion) {
+    //Metodo para añadir una estacion
+
+    public void nuevaEstacion(EstacionMeteorologica estacion){
+
         this.estacionesMeteo.add(estacion);
     }
 
-    /**
-     * Eliminar una estacion
-     */
-    public void eliminarEstacion(EstacionMeteorologica estacion) {
+    //Eliminar una estacion
+
+    public void eliminarEstacion(EstacionMeteorologica estacion){
         this.estacionesMeteo.remove(estacion);
     }
 
-    /**
-     * Buscar una EstacionMeteorologica por nombre
-     */
-    public EstacionMeteorologica buscarEstacion(java.lang.String nombre) {
-        return this.estacionesMeteo.stream()
+    //Buscar una estacion por nombre
+    public EstacionMeteorologica buscarEstacion(String nombre) {
+
+       return this.estacionesMeteo.stream()
                 .filter(estacion -> estacion.getNombre().equals(nombre))
                 .findFirst()
-                .orElse(new EstacionMeteorologica());
+                .orElse(null);
     }
 
-    /**
-     * Devuelve una lista con todos los registros tomados en
-     * una determinada estación meteorológica ordenados por fecha. Puedes usar flatmap para
-     * juntar todos los registros
-     */
-    public List<RegistroDatosDia> getTempPorEstacion(int i){
+    //Devuelve una lista con todos los registros
+    //tomados en una determinada estación meteorológica ordenados por fecha. Puedes usar flatmap para
+    //juntar todos los registros
+    public List<RegistroDatosDia> getTempPorEstacion(Integer id){
 
         return this.estacionesMeteo.stream()
-                .filter(estacionMeteorologica -> estacionMeteorologica.getId().equals(i))
-                .flatMap(estacionMeteorologica -> estacionMeteorologica.getRegistrosDia().stream())
+                .filter(estacion -> estacion.getId().equals(id))
+                .flatMap(estacion -> estacion.getRegistrosDia().stream())
                 .sorted(Comparator.comparing(RegistroDatosDia::getFecha))
                 .toList();
     }
 
-    /**
-     * Devuelve una lista con todas los
-     * registros tomados en un determinado año en una estación, ordenados por temperatura media. Puedes
-     * usar flatmap para juntar todos los registros
-     */
-    public List<RegistroDatosDia> getTempPorAnioEstacion(){
+    // Devuelve una lista con todas los
+    //registros tomados en un determinado año en una estación, ordenados por temperatura media. Puedes
+    //usar flatmap para juntar todos los registros
+    public List<RegistroDatosDia> getTempPorAnioEstacion(Integer id, Integer anio){
         return this.estacionesMeteo.stream()
+                .filter(estacion -> estacion.getId().equals(id))
+                .filter(estacionMeteorologica -> estacionMeteorologica.getRegistrosDia().equals(anio))
                 .flatMap(estacionMeteorologica -> estacionMeteorologica.getRegistrosDia().stream())
                 .sorted(Comparator.comparing(RegistroDatosDia::getTempMedia))
                 .toList();
+
     }
 
-    /**
-     * Devuelve una lista con todos los registros tomados en esa comunidad ordenados por fecha. Pista: flatmap
-     */
-    public List<RegistroDatosDia> getTempPorComunidad(String string){
+
+    //Devuelve una lista con todos los registros tomados en esa comunidad ordenados por fecha. Pista: flatmap
+    public List<RegistroDatosDia> getTempPorComunidad(String comunidad){
+
         return this.estacionesMeteo.stream()
-                .filter(estacionMeteorologica -> estacionMeteorologica.getComunidad().equals(string))
-                .flatMap(estacionMeteorologica -> estacionMeteorologica.getRegistrosDia().stream())
+                .filter(es -> es.getComunidad().equals(comunidad))
+                .flatMap(es -> es.getRegistrosDia().stream())
                 .sorted(Comparator.comparing(RegistroDatosDia::getFecha))
                 .toList();
     }
 
-    /**
-     *  Devuelve la temperatura más alta que se haya registrado
-     * @return
-     */
-    public RegistroDatosDia getTempMaxRegistrada(){
+    // Devuelve la temperatura más alta que se haya registrado
+    public RegistroDatosDia getTempPorComunidad(){
         return this.estacionesMeteo.stream()
-                .flatMap(estacionMeteorologica -> estacionMeteorologica.getRegistrosDia().stream())
+                .flatMap(estacion -> estacion.getRegistrosDia().stream())
                 .max(Comparator.comparing(RegistroDatosDia::getTempMax))
-                .orElse(new RegistroDatosDia());
+                .orElse(null);
     }
 
-    /**
-     * Devuelve un mapa que agrupe por comunidad todas las estaciones en esa comunidad.
-     */
+    //Devuelve un mapa que agrupe por comunidad todas las estaciones en esa comunidad.
     public Map<String, List<EstacionMeteorologica>> getEstacionesPorComunidad(){
-        return new HashMap<>(this.estacionesMeteo.stream()
-                .collect(Collectors.groupingBy(EstacionMeteorologica::getComunidad)));
-    }
-
-    /**
-     * Devuelve true si alguna temperatura media supera 30 grados
-     */
-    public Boolean isTemperaturaMediaAlta(){
         return this.estacionesMeteo.stream()
-                .flatMap(estacionMeteorologica -> estacionMeteorologica.getRegistrosDia().stream())
-                .anyMatch(registroDatosDia -> registroDatosDia.getTempMedia() > 30);
+                .collect(Collectors.groupingBy(EstacionMeteorologica::getComunidad));
     }
 
-    /**
-     *  Devuelve un map agrupando por comunidad que contenga la comunidad
-     *  y la lectura con la temperatura máxima en esa comunidad
-     */
-    public Map<String, Double> getTemperaturaMaxPorComunidad(){
+    // Devuelve true si alguna temperatura media supera 30 grados
+    public Boolean isTempMediaAlta () {
         return this.estacionesMeteo.stream()
-                .collect(Collectors.toMap(EstacionMeteorologica::getComunidad ,
-                        estacion -> estacion.getRegistrosDia().stream()
-                                .mapToDouble(RegistroDatosDia::getTempMax)
-                                .max()
-                                .orElseThrow()));
+                .flatMap(em -> em.getRegistrosDia().stream())
+                .anyMatch(r -> r.getTempMedia() > 30);
     }
 
-    /**
-     * Borrar todas las estaciones que estén en una comunidad
-     */
-    public void borrarEstacionesPorComunidad(String string){
-        this.estacionesMeteo.removeIf(estacionMeteorologica -> estacionMeteorologica.getComunidad().equals(string));
+   // Metodo para borrar todas las estaciones de una comunidad
+    public void borrarEstacionesComunidad(EstacionMeteorologica comunidad){
+        this.estacionesMeteo.removeIf(estacionMeteorologica -> estacionMeteorologica.getComunidad().equals(comunidad));
     }
 
-    /**
-     * Para una estación pinta sus temperaturas en Farenheit
-     * Pista: puedes llamar a getTempPorEstacion(int id).
-     */
-    public void pintarTempEstacionFarenheit(Integer id){
-        this.estacionesMeteo.stream()
-                .filter(estacionMeteorologica -> estacionMeteorologica.getId().equals(id))
-                .flatMap(estacionMeteorologica -> estacionMeteorologica.getRegistrosDia().stream())
-                .forEach(registroDatosDia -> System.out.println(registroDatosDia.getTempMedia() * 1.8 + 32));
+    // Metodo para mostrar las temperaturas de una estacion en grados farenheit
+    public void pintaTempEstacionFarenheit(Integer id){
+        this.getTempPorEstacion(id).stream()
+                .map(RegistroDatosDia::getTempMax)
+                .forEach(tempMax -> {
+                    System.out.println((tempMax * 1.08) +32);
+                });
 
     }
 
-    /**
-     * Devuelve un Map agrupando por estación, cuyo valor sea
-     * el número de registros de temperatura tomados en esa estación
-     */
-    public Map<java.lang.String, Integer> getNumRegistros(){
+    // Metodo para obtener los numeros de registros por estacion
+    public Map<String, Long> getNumRegistros(){
         return this.estacionesMeteo.stream()
                 .collect(Collectors.toMap(EstacionMeteorologica::getNombre,
-                        estacion -> estacion.getRegistrosDia().size()));
+                        estacion -> estacion.getRegistrosDia().stream()
+                                .count()));
     }
+
 }
