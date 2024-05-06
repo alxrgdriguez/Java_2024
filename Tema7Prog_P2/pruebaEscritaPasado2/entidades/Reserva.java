@@ -15,6 +15,16 @@ public class Reserva implements Comparable<Reserva> {
     private String nacionalidad;
     private Hotel hotel;
 
+    public Reserva(LocalDate fechaEntrada, LocalDate fechaSalida, Integer cantidadHabitaciones, Integer numPersonasPorHabitacion, String dni, String nacionalidad, Hotel hotel) {
+        this.fechaEntrada = fechaEntrada;
+        this.fechaSalida = fechaSalida;
+        this.cantidadHabitaciones = cantidadHabitaciones;
+        this.numPersonasPorHabitacion = numPersonasPorHabitacion;
+        this.dni = dni;
+        this.nacionalidad = nacionalidad;
+        this.hotel = hotel;
+    }
+
     public Long getId() {
         return id;
     }
