@@ -6,9 +6,12 @@ import Tema7Prog_P2.pruebaEscritaPasado2.entidades.HotelRural;
 import Tema7Prog_P2.pruebaEscritaPasado2.entidades.Reserva;
 import Tema7Prog_P2.pruebaEscritaPasado2.servicios.Buking;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -59,5 +62,68 @@ public class DAOReserva {
         buk.setReservas(reservas);
 
         return buk;
+    }
+
+    public static void grabarCSV(Buking booking) throws IOException {
+
+        Path ficheroReservas = Paths.get(".", "Tema7Prog_P2" ,"pruebaEscritaPasado2", "recursos", "reservas.csv");
+        Path ficheroHoteles = Paths.get(".", "Tema7Prog_P2", "pruebaEscritaPasado2", "recursos", "reservas.csv");
+
+        Files.deleteIfExists(ficheroHoteles);
+        BufferedWriter bwHotel = Files.newBufferedWriter(ficheroHoteles,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.WRITE);
+
+        StringBuffer sbHotel = new StringBuffer();
+        for (Hotel hotel : booking.getHoteles()){
+            if (hotel instanceof HotelRural){
+                HotelRural hr = (HotelRural) hotel;
+                sbHotel.append(hr.getNombre()).append(",");
+                sbHotel.append(hr.getDireccion()).append(",");
+                sbHotel.append(hr.getLocalidad()).append(",");
+                sbHotel.append(hr.getProvincia()).append(",");
+                sbHotel.append(hr.getNumHabitaciones()).append(",");
+                sbHotel.append(hr.getPrecioNoche()).append(",");
+                sbHotel.append(hr.getCalificacion()).append(",");
+                sbHotel.append(1).append(",");
+                sbHotel.append(hr.getCalefacion()).append(",");
+                sbHotel. append(0).append("\n"); //Cómo los hoteles rurales no tienen aire le ponemos 0
+            } else {
+                HotelPlaya hp = (HotelPlaya) hotel;
+                sbHotel.append(hp.getNombre()).append(",");
+                sbHotel.append(hp.getDireccion()).append(",");
+                sbHotel.append(hp.getLocalidad()).append(",");
+                sbHotel.append(hp.getProvincia()).append(",");
+                sbHotel.append(hp.getNumHabitaciones()).append(",");
+                sbHotel.append(hp.getPrecioNoche()).append(",");
+                sbHotel.append(hp.getCalificacion()).append(",");
+                sbHotel.append(0).append(",");
+                sbHotel.append(0).append(",");
+                sbHotel.append(hp.getAireAcondicionado()).append("\n");
+            }
+        }
+
+        bwHotel.write(sbHotel.toString());
+        bwHotel.close();
+
+
+        Files.deleteIfExists(ficheroReservas);
+        BufferedWriter bwReservas = Files.newBufferedWriter(ficheroReservas,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.WRITE);
+
+        StringBuffer sbReservas = new StringBuffer();
+        for (Reserva reserva : booking.getReservas()){
+            sbReservas.append(reserva.getFechaEntrada()).append(",");
+            sbReservas.append(reserva.getFechaSalida()).append(",");
+            sbReservas.append(reserva.getCantidadHabitaciones()).append(",");
+            sbReservas.append(reserva.getNumPersonasPorHabitacion()).append(",");
+            sbReservas.append(reserva.getDni()).append(",");
+            sbReservas.append(reserva.getNacionalidad()).append(",");
+            sbReservas.append(reserva.getHotel().getId()).append("\n");
+        }
+
+        bwReservas.write(sbReservas.toString());
+        bwReservas.close();
     }
 }
