@@ -153,7 +153,7 @@ public class Buking {
 
     public List<Reserva> getReservasOrdenadas(){
         return this.reservas.stream()
-                .sorted(Comparator.comparing(Reserva::getFechaEntrada))
+                .sorted()
                 .collect(Collectors.toList());
     }
 
